@@ -1,0 +1,21 @@
+@echo off
+cls
+@title System Cleanup (G33kPhish)
+echo.
+echo  Cleaning up, please wait...
+cd\
+del /q TDSS*.txt
+del /q Combofix*.txt
+takeown /f QooBox
+cacls QooBox /t /e /g everyone:F 
+rd /s /q QooBox
+takeown /f AdwCleaner
+cacls AdwCleaner /t /e /g everyone:F 
+rd /s /q AdwCleaner
+takeown /f INTPTT
+cacls INTPTT /t /e /g everyone:F 
+rd /s /q INTPTT
+echo.
+echo  Done! Exiting shortly...
+ping 127.0.0.1 -n 4 > NUL
+exit
