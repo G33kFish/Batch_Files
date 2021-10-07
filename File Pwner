@@ -1,0 +1,9 @@
+@echo off
+cls
+@title File/Folder Pwner (G33kPhish)
+echo.
+echo Pwning...
+takeown /F %1 /R /D Y
+cacls %1 /T /E /C /G Everyone:F
+attrib -R -S -H %1 /S /D
+exit
