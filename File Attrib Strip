@@ -1,0 +1,9 @@
+@echo off
+cls
+@title File/Folder Attributes Stripper
+echo.
+echo  Stripping hidden, system and read-only attributes...
+echo.
+echo  This window will close automatically upon completion.
+attrib -R -S -H /S /D %1
+exit
