@@ -1,0 +1,12 @@
+@echo off
+cls
+@title Recycle Bin Revealer
+echo.
+echo  Revealing, please wait...
+cd $RECYCLE.BIN
+attrib -r -h -s desktop.ini /s
+del desktop.ini /s /q
+attrib -h -s -r *.* /s /d
+echo  Done! Exiting shortly...
+ping 127.0.0.1 -n 5 > NUL
+exit
