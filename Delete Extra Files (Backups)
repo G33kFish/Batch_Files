@@ -1,0 +1,69 @@
+@echo off
+cls
+@title Remove Extra Files (from Backups)
+echo.
+echo  Press any key to remove MANY types of "excess files", such as Thumbs.db,
+echo  Desktop.ini, ZbThumbnail.info, DS_Store (Mac) and Picasa.ini from the
+echo  current directory and subdirectories that this batch file was run from...
+echo.
+echo     WARNING - THIS WILL DELETE DATA! DO NOT RUN ON A SYSTEM DRIVE!
+echo.
+pause>nul
+echo.
+echo  Removing .TMP, please wait...
+echo.
+attrib /S /D -R -H -S *.tmp
+del /S /Q /F *.tmp
+echo.
+echo  Removing Index.dat, please wait...
+echo.
+attrib /S /D -R -H -S Index.dat
+del /S /Q /F Index.dat
+echo.
+echo  Removing IconCache.db, please wait...
+echo.
+attrib /S /D -R -H -S IconCache.db
+del /S /Q /F IconCache.db
+echo.
+echo  Removing thumbs.db, please wait...
+echo.
+attrib /S /D -R -H -S thumbs.db
+del /S /Q /F thumbs.db
+echo.
+echo  Removing ehthumbs_vista.db, please wait...
+echo.
+attrib /S /D -R -H -S ehthumbs_vista.db
+del /S /Q /F ehthumbs_vista.db
+echo.
+echo  Removing ZbThumbnail.info, please wait...
+echo.
+attrib /S /D -R -H -S ZbThumbnail.info
+del /S /Q /F ZbThumbnail.info
+echo.
+echo  Done! Removing desktop.ini, please wait...
+echo.
+attrib /S /D -R -H -S desktop.ini
+del /S /Q /F desktop.ini
+echo.
+echo  Done! Removing Picasa.ini, please wait...
+echo.
+attrib /S /D -R -H -S Picasa.ini
+del /S /Q /F desktop.ini
+echo.
+echo  Done! Removing DS_Store files, please wait...
+echo.
+attrib /S /D -R -H -S *.DS_Store*
+del /S /Q /F *.DS_Store*
+echo.
+echo  Done! Removing Extra Recycle Bins, please wait...
+echo.
+attrib /S /D -R -H -S $RECYCLE.BIN
+attrib /S /D -R -H -S Recycled
+attrib /S /D -R -H -S Recycler
+rd /S /Q $RECYCLE.BIN
+rd /S /Q Recycled
+rd /S /Q Recycler
+echo.
+echo  Done! Press any key to exit.
+pause>nul
+exit
