@@ -1,0 +1,27 @@
+@echo	off
+cls
+@title	Browser Extensions, Installs, and CMD Commands..
+echo	Installs
+echo.
+echo	Edge Browser extensions...
+start	microsoft-edge:"https://www.google.com"
+echo.
+echo	Chrome Browser extensions...
+start	chrome https://www.google.com
+echo.
+echo	Firefox Browser extensions...
+start	firefox https://www.google.com
+echo.
+Pause
+cls
+echo	Installs
+echo.
+echo	CCleaner Download...
+start	https://www.ccleaner.com/ccleaner/download/standard
+echo.
+echo	Defraggler Download...
+start	http://download.piriform.com/dfsetup.exe
+echo.
+echo All Done! Press any key to exit.
+pause>nul
+exit
