@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
 @title System Cleanup (G33kPhish)
+echo.
+echo  The time is %time% on %date%
 echo.
 echo  Cleaning up, please wait...
 cd\
