@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
-@title Backup Prep 
+@title System Cleanup (G33kPhish)
+echo.
+echo  The time is %time% on %date%
 echo.
 echo  Preparing drive for backup, please wait...
 
