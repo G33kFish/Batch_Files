@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
 @title Remove Extra Files (from Backups)
+echo.
+echo  echo  The time is %time% on %date%
 echo.
 echo  Press any key to remove MANY types of "excess files", such as Thumbs.db,
 echo  Desktop.ini, ZbThumbnail.info, DS_Store (Mac) and Picasa.ini from the
