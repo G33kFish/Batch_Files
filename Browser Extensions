@@ -1,7 +1,10 @@
+.LOG
 @echo off
 cls
-@title 	Browser Extensions 
+@title 	Browser Extensions (G33kPhish)
 echo  	Edge Extension...
+echo  The time is %time% on %date%
+echo.
 start 			https://microsoftedge.microsoft.com/addons/detail/adblock-plus-free-ad-bl/gmgoamodcdcjnbaobigkjelfplakmdhh?hl=en-US 
 start			https://microsoftedge.microsoft.com/addons/detail/dark-reader/ifoakfbpdcdoeenechcleahebpibofpc
 echo  	Firefox Extensions...
