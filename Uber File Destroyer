@@ -1,0 +1,37 @@
+.LOG
+@echo off
+cls
+@title File and Folder Destructor (G33kfish)
+echo.
+echo  The time is %time% on %date%
+echo.
+echo  Destroying all the things...
+
+:LOOP
+if exist %1\ rd /s /q %1 > NUL
+if exist %1 del /F /S /Q %1 > NUL
+
+if not exist %1 goto ENDLOOP
+
+takeown /F %1 /R /D Y > NUL
+cacls %1 /T /E /C /G Everyone:F > NUL
+if exist %1\ rd /s /q %1 > NUL
+if exist %1 del /F /S /Q %1 > NUL
+
+if not exist %1 goto ENDLOOP
+echo %1
+
+:ENDLOOP
+
+shift
+if '%1'=='' goto DONE
+goto LOOP
+
+:DONE
+echo.
+echo  Done! Files listed above still exist.
+echo.
+echo  (Press any key to exit...)
+rem pause > NUL
+
+exit
