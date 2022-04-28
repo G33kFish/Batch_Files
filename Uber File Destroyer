@@ -1,7 +1,7 @@
 .LOG
 @echo off
 cls
-@title File and Folder Destructor (G33kfish)
+@title File and Folder Destructor 
 echo.
 echo  The time is %time% on %date%
 echo.
