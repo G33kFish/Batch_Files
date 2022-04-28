@@ -1,6 +1,6 @@
 @echo off
 cls
-@title File/Folder Pwner (G33kPhish)
+@title File/Folder Pwner 
 echo.
 echo Pwning...
 takeown /F %1 /R /D Y
