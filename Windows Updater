@@ -1,0 +1,13 @@
+.LOG
+@Echo off
+cls
+@title Windows Updater
+echo.
+echo  The time is %time% on %date%
+echo.
+For %%# in (*.msu) Do (
+    Echo: Installing update: %%#
+    Wusa "%%#" /quiet /norestart
+)
+Echo Windows Update finished.
+Pause&Exit
