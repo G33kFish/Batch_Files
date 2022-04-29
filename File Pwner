@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
 @title File/Folder Pwner 
+echo.
+echo  The time is %time% on %date%
 echo.
 echo Pwning...
 takeown /F %1 /R /D Y
