@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
 @title File and Folder Destructor
+echo.
+echo  The time is %time% on %date%
 echo.
 echo  Destroying all the things...
 
