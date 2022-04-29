@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
 @title File/Folder Attributes Stripper
+echo.
+echo  The time is %time% on %date%
 echo.
 echo  Stripping hidden, system and read-only attributes...
 echo.
