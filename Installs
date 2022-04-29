@@ -1,7 +1,10 @@
+.LOG
 @echo	off
 cls
 @title	Browser Extensions, Installs, and CMD Commands..
 echo	Installs
+echo.
+echo  The time is %time% on %date%
 echo.
 echo	Edge Browser extensions...
 start	microsoft-edge:"https://www.google.com"
