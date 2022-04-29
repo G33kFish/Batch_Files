@@ -1,6 +1,9 @@
+.LOG
 @echo off
 cls
 @title Recycle Bin Revealer
+echo.
+echo  The time is %time% on %date%
 echo.
 echo  Revealing, please wait...
 cd $RECYCLE.BIN
