@@ -1,4 +1,10 @@
+.LOG
 @Echo off
+cls
+@Quick Windows Update 
+echo.
+echo  The time is %time% on %date%
+echo.
 For %%# in (*.msu) Do (
     Echo: Installing update: %%#
     Wusa "%%#" /quiet /norestart
