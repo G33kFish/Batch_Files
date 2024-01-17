@@ -1,0 +1,18 @@
+@schtasks /query /TN RebootAfterUpdates > doh
+@findstr /B /I "RebootAfterUpdates" doh >nul
+@if %errorlevel%==0  goto :update
+@goto :create
+
+:update
+@del doh
+@SCHTASKS /Change /TN RebootAfterUpdates /SD %DATE%
+@echo Task updated to execute today
+@goto :exitBat
+
+:create
+@del doh
+@SCHTASKS /Create /SC ONCE  /TN RebootAfterUpdates /TR "C:\tmp\Scripts\rebootAfterUpdates.bat" /ST 23:55 /sd %DATE%  /ru SYSTEM /f
+@echo Task created. Set the "Wake to Execute Flag" through Task Scheduler GUI
+
+:exitBat
+@exit /b
