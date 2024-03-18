@@ -1,0 +1,2 @@
+taskkill /F /im "StreamDeck.exe"
+start "" "C:\Program Files\Elgato\StreamDeck\StreamDeck.exe
