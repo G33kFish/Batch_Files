@@ -1,0 +1,75 @@
+@echo off
+cls
+@title Ninite CYE Install/Update
+echo.
+
+:CheckingAdmin
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+
+if '%errorlevel%' NEQ '0' (
+    echo  Attempting to elevate this session as admin is required...
+    goto UACPrompt
+) else ( goto GotAdmin )
+
+:UACPrompt
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+
+    "%temp%\getadmin.vbs"
+    exit /B
+
+:GotAdmin
+    if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+    pushd "%CD%"
+    CD /D "%~dp0"
+echo  Admin access confirmed! Moving on...
+echo.
+
+:RunNN
+echo  Running program installs and updates then exiting with log when done. Please wait...
+echo.
+cd %~dp0
+if not exist NN_CYE.exe goto MISSING
+if exist 1_Times.txt del 1_Times.txt
+if exist 2_Installed.txt del 2_Installed.txt
+if exist 2_Updated.txt del 2_Updated.txt
+if exist 3_Updated.txt del 3_Updated.txt
+if exist CYE_Log.txt del CYE_Log.txt
+if exist NiniteDownloads rd /s /q NiniteDownloads
+echo Started %date% %time% >> 1_Times.txt
+start /wait NN_CYE.exe /select "7-Zip" "Acrobat Reader DC x64" Chrome Edge Firefox XnView "Java (Oracle) 8" "Java (Oracle) x64 8" LibreOffice /silent 2_Installed.txt
+echo Install finished %date% %time% >> 1_Times.txt
+start /wait NN_CYE.exe /updateonly /silent 3_Updated.txt
+echo Updates finished %date% %time% >> 1_Times.txt
+rd /s /q NiniteDownloads
+echo --- Log times --- >> CYE_Log.txt
+echo. >> CYE_Log.txt
+type 1_Times.txt >> CYE_Log.txt
+echo. >> CYE_Log.txt
+echo --- Install log --- >> CYE_Log.txt
+echo. >> CYE_Log.txt
+type 2_Installed.txt >> CYE_Log.txt
+echo. >> CYE_Log.txt
+echo --- Update log --- >> CYE_Log.txt
+echo. >> CYE_Log.txt
+type 3_Updated.txt >> CYE_Log.txt
+if exist 1_Times.txt del 1_Times.txt
+if exist 2_Installed.txt del 2_Installed.txt
+if exist 3_Updated.txt del 3_Updated.txt
+echo  Done! Please report any errors. (Closing shortly...)
+ping 127.0.0.1 -n 3 > NUL
+start CYE_Log.txt
+goto FINISH
+
+:MISSING
+echo  ---------------------------------------------------
+echo  It looks like the Ninite EXE is missing or renamed!
+echo.
+echo  Please make sure the Ninite EXE is present and named NN_CYE.exe.
+echo.
+echo  (Press any key to exit...)
+echo  ---------------------------------------------------
+pause>nul
+
+:FINISH
+exit
