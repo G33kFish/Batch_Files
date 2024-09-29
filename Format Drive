@@ -1,0 +1,6 @@
+@echo off
+echo WARNING: This will format the E: drive. All data will be lost.
+pause
+format E: /FS:NTFS /Q /X
+echo Format complete.
+pause
