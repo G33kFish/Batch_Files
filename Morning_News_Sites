@@ -1,0 +1,6 @@
+@echo off
+start "" "https://hackaday.com/"
+start "" "https://tldr.tech/"
+start "" "https://www.garyruddell.com/blog"
+start "" "https://thehackernews.com/"
+start "" "https://www.bleepingcomputer.com/"
