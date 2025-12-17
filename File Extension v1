@@ -1,0 +1,44 @@
+@echo off
+setlocal
+
+:: ===============================
+:: Fix .EXE File Association (BAT)
+:: ===============================
+
+:: Require admin
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+  echo [!] Please right-click this .bat and choose "Run as administrator".
+  pause
+  exit /b 1
+)
+
+echo [*] Repairing .exe file associations...
+
+:: Restore .exe -> exefile
+reg add "HKCR\.exe" /ve /d "exefile" /f >nul
+
+:: Restore exefile class
+reg add "HKCR\exefile" /ve /d "Application" /f >nul
+
+:: Restore open command
+reg add "HKCR\exefile\shell\open\command" /ve /d "\"%%1\" %%*" /f >nul
+
+:: Restore runas command (Run as admin)
+reg add "HKCR\exefile\shell\runas\command" /ve /d "\"%%1\" %%*" /f >nul
+
+:: Restore icon handler
+reg add "HKCR\exefile\DefaultIcon" /ve /d "%%1" /f >nul
+
+:: Remove per-user override that can break .exe launching
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.exe\UserChoice" /f >nul 2>&1
+
+echo [✓] Done. Restarting Explorer to apply changes...
+
+:: Restart Explorer
+taskkill /f /im explorer.exe >nul 2>&1
+start "" explorer.exe
+
+echo [✓] Explorer restarted. If .exe files still won't run, reboot Windows.
+pause
+endlocal
