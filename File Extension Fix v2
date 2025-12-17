@@ -1,0 +1,57 @@
+@echo off
+setlocal EnableExtensions
+
+:: ==========================================
+:: FAILSAFE Fix .EXE File Association (x64)
+:: Forces 64-bit reg.exe via Sysnative when possible
+:: Creates a timestamped registry backup
+:: ==========================================
+
+:: Prefer 64-bit System32 from a 32-bit context using Sysnative
+set "SYS=%SystemRoot%\System32"
+if exist "%SystemRoot%\Sysnative\reg.exe" set "SYS=%SystemRoot%\Sysnative"
+
+set "CMD=%SYS%\cmd.exe"
+set "REG=%SYS%\reg.exe"
+set "TASKKILL=%SYS%\taskkill.exe"
+set "EXPLORER=%SYS%\explorer.exe"
+set "REGEXPORT=%SYS%\reg.exe"
+
+:: Admin check (absolute path)
+"%CMD%" /c "net session >nul 2>&1"
+if %errorlevel% neq 0 (
+  echo [!] Please run this batch file as Administrator.
+  pause
+  exit /b 1
+)
+
+:: Timestamp for backups (safe for filenames)
+for /f "tokens=1-3 delims=/- " %%a in ("%date%") do set "D=%%c-%%a-%%b"
+for /f "tokens=1-3 delims=:." %%a in ("%time%") do set "T=%%a%%b%%c"
+set "STAMP=%D%_%T%"
+
+set "BKDIR=%~dp0exe_assoc_backup_%STAMP%"
+mkdir "%BKDIR%" >nul 2>&1
+
+echo [*] Using tools from: %SYS%
+echo [*] Backing up relevant registry keys to:
+echo     %BKDIR%
+
+:: Backups (best-effort)
+"%REG%" export "HKCR\.exe" "%BKDIR%\HKCR_.exe.reg" /y >nul 2>&1
+"%REG%" export "HKCR\exefile" "%BKDIR%\HKCR_exefile.reg" /y >nul 2>&1
+"%REG%" export "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.exe" "%BKDIR%\HKCU_FileExts_.exe.reg" /y >nul 2>&1
+
+echo [*] Repairing .exe file associations...
+
+:: Restore .exe -> exefile
+"%REG%" add "HKCR\.exe" /ve /d "exefile" /f >nul
+
+:: Restore exefile class
+"%REG%" add "HKCR\exefile" /ve /d "Application" /f >nul
+
+:: Restore open command
+"%REG%" add "HKCR\exefile\shell\open\command" /ve /d "\"%%1\" %%*" /f >nul
+
+:: Restore runas command (Run as admin)
+"%REG%" add "HKCR
